@@ -1,0 +1,16 @@
+[Unit]
+Description=Foot
+After=weston.service
+Requires=weston.service
+
+[Service]
+User=root
+ExecStartPre=/usr/bin/test ! -f /run/user/0/wayland-1
+ExecStart=/usr/bin/foot -m -F -L
+Environment="WAYLAND_DISPLAY=wayland-1"
+Environment="XDG_RUNTIME_DIR=/run/user/0"
+KillMode=mixed
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
